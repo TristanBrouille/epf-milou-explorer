@@ -1,0 +1,22 @@
+name = "xplorer"
+description = ""
+version = "0.1.0-dev"
+
+authors = ["Tristan DHERSIN"]
+maintainers = ["Tristan DHERSIN <tristan.dhersin@gmail.com>"]
+maintainers-logins = ["TristanBrouille"]
+licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
+website = ""
+tags = []
+
+executables = ["xplorer"]
+
+[[depends-on]]
+milou = "*"
+light_tasking_stm32g431 = "*"
+nucleo_g431kb = "*"
+gnat_arm_elf = "*"
+
+[[pins]]
+milou = {path = ".."}
+#nucleo_g431kb = {path = "../.."}
