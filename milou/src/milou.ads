@@ -1,4 +1,3 @@
---with board;
 
 package Milou is
 

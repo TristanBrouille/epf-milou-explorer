@@ -10,7 +10,7 @@ project Xplorer is
    for Object_Dir use "obj/" & Xplorer_Config.Build_Profile;
    for Create_Missing_Dirs use "True";
    for Exec_Dir use "bin";
-   for Main use ("xplorer.adb");
+   for Main use ("xplorer.adb", "cmd_led.adb", "pwm_led.adb");
 
    package Compiler is
       for Default_Switches ("Ada") use Xplorer_Config.Ada_Compiler_Switches;
