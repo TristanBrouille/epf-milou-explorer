@@ -9,8 +9,6 @@ procedure PWM_LED is
 
    type Bit is mod 2 ** 1; -- Définition du type Bit comme un entier modulaire sur 1 bit
 
-   
-
    type Color_Array is array (Positive range 1 .. 24) of Bit; -- Définition d'un tableau de 24 bits
 
    -- Définition de la couleur rouge : 8 bits à 1, puis 16 à 0
@@ -78,11 +76,11 @@ begin
       Next_Release := Next_Release + Period;
 
       if Counter /= Bit_Count then
-         Out_Bit (Red_Color (Counter));
+         Out_Bit (Green_Color (Counter));
       end if;
 
-      Counter := (if Counter = Red_Color'Last 
-                           then Red_Color'First
+      Counter := (if Counter = Green_Color'Last 
+                           then Green_Color'First
                            else Counter + 1);
 
       delay until Next_Release;
