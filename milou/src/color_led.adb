@@ -37,39 +37,51 @@ package body Color_led is
 
       -- Variables de PWM
       Period        : Time_Span := Nanoseconds (1250); -- 1.25 µs
+      Latch_Period  : constant Time_Span := Microseconds (100); -- 100 µs pour latch
       Next_Release  : Time := Clock;
       Counter       : Positive := Color_Array'First;
 
       
    begin
-      -- Initialisation des périphériques
-      RCC_Periph.AHB2ENR.GPIOAEN := 1;               -- GPIOA clock
-      RCC_Periph.APB2ENR.TIM1EN  := 1;               -- TIM1 clock
-      GPIOA_Periph.MODER.Arr (8) := 2#10#;           -- Alternate Function
-      GPIOA_Periph.AFRH.Arr (8)  := 6;               -- AF6 = TIM1_CH1
-      GPIOA_Periph.OSPEEDR.Arr (8) := 2#11#;         -- High speed
-      GPIOA_Periph.OTYPER.OT.Arr (8) := 0;           -- Push-pull
-      GPIOA_Periph.PUPDR.Arr (8) := 2#00#;           -- No pull
-      TIM1_Periph.PSC.PSC := PSC_PSC_Field (1);      -- Prescaler
-      TIM1_Periph.ARR.ARR := ARR_ARR_Field (105);    -- Auto-reload pour PWM
-      TIM1_Periph.CCMR1_Output.CC1S  := 0;
-      TIM1_Periph.CCMR1_Output.OC1M  := 2#110#;
-      TIM1_Periph.CCMR1_Output.OC1PE := 1;
-      TIM1_Periph.CCER.CC1E := 1;
-      TIM1_Periph.CR1.ARPE := 1;
-      TIM1_Periph.EGR.UG   := 1;
-      TIM1_Periph.CR1.CEN  := 1;
-      TIM1_Periph.BDTR.MOE := 1;
-      Next_Release := Clock;
+   -- Initialisation des périphériques
+   RCC_Periph.AHB2ENR.GPIOAEN := 1;               -- GPIOA clock
+   RCC_Periph.APB2ENR.TIM1EN  := 1;               -- TIM1 clock
+   GPIOA_Periph.MODER.Arr (8) := 2#10#;           -- Alternate Function
+   GPIOA_Periph.AFRH.Arr (8)  := 6;               -- AF6 = TIM1_CH1
+   GPIOA_Periph.OSPEEDR.Arr (8) := 2#11#;         -- High speed
+   GPIOA_Periph.OTYPER.OT.Arr (8) := 0;           -- Push-pull
+   GPIOA_Periph.PUPDR.Arr (8) := 2#00#;           -- No pull
+   TIM1_Periph.PSC.PSC := PSC_PSC_Field (1);      -- Prescaler
+   TIM1_Periph.ARR.ARR := ARR_ARR_Field (105);    -- Auto-reload pour PWM
+   TIM1_Periph.CCMR1_Output.CC1S  := 0;
+   TIM1_Periph.CCMR1_Output.OC1M  := 2#110#;
+   TIM1_Periph.CCMR1_Output.OC1PE := 1;
+   TIM1_Periph.CCER.CC1E := 1;
+   TIM1_Periph.CR1.ARPE := 1;
+   TIM1_Periph.EGR.UG   := 1;
+   TIM1_Periph.CR1.CEN  := 1;
+   TIM1_Periph.BDTR.MOE := 1;
+   Next_Release := Clock;
 
-      for C in Color'Range loop
-         Next_Release := Next_Release + Period;
-         Out_Bit (Color (C));
-         delay until Next_Release;
-      end loop;
+   -- Boucle principale de PWM
+   loop
+      -- Choisir la période normale ou la période de latch
+      Period := (if Counter = Bit_Count then Latch_Period else Period);
+      Next_Release := Next_Release + Period;
+
+      if Counter /= Bit_Count then
+         Out_Bit (Color (Counter));
+      end if;
+
+      Counter := (if Counter = Color'Last 
+                           then Color'First
+                           else Counter + 1);
+
+      delay until Next_Release;
+   end loop;
       Out_Bit (0); -- Envoi d'un bit de latch (0) à la fin
-      --delay 0.0001; -- Attente de 100 microseconde pour visualiser la couleur
-      put_Line ("Je suis dans LED_Color");
+      delay To_Duration (Latch_Period); -- Attente de 100 microseconde pour visualiser la couleur
+      -- put_Line ("Je suis dans LED_Color");
    end LED_Color;
 
    procedure LED_Blue is
