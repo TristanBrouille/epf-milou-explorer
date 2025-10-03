@@ -4,33 +4,9 @@ with Interfaces.STM32.TIM;  use Interfaces.STM32.TIM;
 with Ada.Real_Time;         use Ada.Real_Time;
 
 package body Color_led is
-   procedure PWM_LED is
+   procedure Set_LED (C : Color_Array) is
 
-      type Bit is mod 2 ** 1; -- Définition du type Bit comme un entier modulaire sur 1 bit
-
-      type Color_Array is array (Positive range 1 .. 24) of Bit; -- Définition d'un tableau de 24 bits
-
-      -- Définition de la couleur rouge : 8 bits à 1, puis 16 à 0
-      Red_Color : constant Color_Array := ( 
-         0, 0, 0, 0, 0, 0, 0, 0, -- 8 bits à 1 pour le rouge
-         1, 1, 0, 0, 0, 0, 0, 0, -- 16 bits à 0 pour le reste
-         0, 0, 0, 0, 0, 0, 0, 0
-
-      );
-      Green_Color : constant Color_Array := ( 
-         1, 1, 1, 1, 1, 1, 1, 1, -- 8 bits à 1 pour le rouge
-         0, 0, 0, 0, 0, 0, 0, 0, -- 16 bits à 0 pour le reste
-         0, 0, 0, 0, 0, 0, 0, 0
-
-      );
-
-      Blue_Color : constant Color_Array := ( 
-         0, 0, 0, 0, 0, 0, 0, 0, -- 16 bits à 0 pour le reste
-         0, 0, 0, 0, 0, 0, 0, 0,
-         1, 1, 1, 1, 1, 1, 1, 1
-      );
-
-      Bit_Count : constant := Red_Color'Length;
+      Bit_Count : constant := C'Length;
 
       -- Variables de PWM
       Period        : Time_Span := Nanoseconds (1250); -- 1.25 µs
@@ -75,14 +51,14 @@ package body Color_led is
          Next_Release := Next_Release + Period;
 
          if Counter /= Bit_Count then
-            Out_Bit (Red_Color (Counter));
+            Out_Bit (C (Counter));
          end if;
 
-         Counter := (if Counter = Red_Color'Last 
-                              then Red_Color'First
+         Counter := (if Counter = C'Last 
+                              then C'First
                               else Counter + 1);
 
          delay until Next_Release;
       end loop;
-   end PWM_LED;
+   end Set_LED;
 end Color_led;
