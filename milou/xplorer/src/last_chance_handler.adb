@@ -16,9 +16,9 @@ package body Last_Chance_Handler is
       GPIOB_Periph.BSRR.BR.Arr (8) := 1;     -- Ensure LED is OFF initially
       loop
          GPIOB_Periph.BSRR.BS.Arr (8) := 1;  -- LED ON
-         delay 1.0;
+         delay 0.1;
          GPIOB_Periph.BSRR.BR.Arr (8) := 1;  -- LED OFF
-         delay 1.0;
+         delay 0.1;
       end loop;
    end;
 
