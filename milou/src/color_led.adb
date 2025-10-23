@@ -10,6 +10,7 @@ package body Color_led is
 
       -- Variables de PWM
       Period        : Time_Span := Nanoseconds (1250); -- 1.25 µs
+      Normal_Period : constant Time_Span := Nanoseconds (1250); -- 1.25 µs
       Latch_Period  : constant Time_Span := Microseconds (100); -- 100 µs pour latch
       Next_Release  : Time := Clock;
       Counter       : Positive := 1;
@@ -24,7 +25,23 @@ package body Color_led is
       end Out_Bit;
 
    begin
-      -- Initialisation des périphériques
+   
+      Next_Release := Clock;
+
+      -- Boucle principale de PWM
+      for Counter in C'Range loop
+         -- Choisir la période normale ou la période de latch
+         Period := (if Counter = Bit_Count then Latch_Period else Period);
+         Next_Release := Next_Release + Period;
+
+         Out_Bit (C (Counter));
+         delay until Next_Release;
+      end loop;
+   end Set_LED;
+
+   procedure Init_led is
+   begin
+       -- Initialisation des périphériques
       RCC_Periph.AHB2ENR.GPIOAEN := 1;               -- GPIOA clock
       RCC_Periph.APB2ENR.TIM1EN  := 1;               -- TIM1 clock
       GPIOA_Periph.MODER.Arr (8) := 2#10#;           -- Alternate Function
@@ -42,23 +59,5 @@ package body Color_led is
       TIM1_Periph.EGR.UG   := 1;
       TIM1_Periph.CR1.CEN  := 1;
       TIM1_Periph.BDTR.MOE := 1;
-      Next_Release := Clock;
-
-      -- Boucle principale de PWM
-      loop
-         -- Choisir la période normale ou la période de latch
-         Period := (if Counter = Bit_Count then Latch_Period else Period);
-         Next_Release := Next_Release + Period;
-
-         if Counter /= Bit_Count then
-            Out_Bit (C (Counter));
-         end if;
-
-         Counter := (if Counter = C'Last 
-                              then C'First
-                              else Counter + 1);
-
-         delay until Next_Release;
-      end loop;
-   end Set_LED;
+   end Init_led;
 end Color_led;

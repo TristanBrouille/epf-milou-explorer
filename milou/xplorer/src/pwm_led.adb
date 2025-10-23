@@ -76,11 +76,11 @@ begin
       Next_Release := Next_Release + Period;
 
       if Counter /= Bit_Count then
-         Out_Bit (Green_Color (Counter));
+         Out_Bit (Red_Color (Counter));
       end if;
 
-      Counter := (if Counter = Green_Color'Last 
-                           then Green_Color'First
+      Counter := (if Counter = Red_Color'Last 
+                           then Red_Color'First
                            else Counter + 1);
 
       delay until Next_Release;
