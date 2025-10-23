@@ -57,8 +57,10 @@ begin
    GPIOA_Periph.OSPEEDR.Arr (8) := 2#11#;         -- High speed
    GPIOA_Periph.OTYPER.OT.Arr (8) := 0;           -- Push-pull
    GPIOA_Periph.PUPDR.Arr (8) := 2#00#;           -- No pull
-   TIM1_Periph.PSC.PSC := PSC_PSC_Field (1);      -- Prescaler
-   TIM1_Periph.ARR.ARR := ARR_ARR_Field (105);    -- Auto-reload pour PWM
+   TIM1_Periph.PSC.PSC := PSC_PSC_Field (0);      -- Prescaler
+   TIM1_Periph.ARR.ARR := ARR_ARR_Field (50);    -- Auto-reload pour PWM
+   --  TIM1_Periph.PSC.PSC := PSC_PSC_Field (1);      -- Prescaler
+   --  TIM1_Periph.ARR.ARR := ARR_ARR_Field (105);    -- Auto-reload pour PWM
    TIM1_Periph.CCMR1_Output.CC1S  := 0;
    TIM1_Periph.CCMR1_Output.OC1M  := 2#110#;
    TIM1_Periph.CCMR1_Output.OC1PE := 1;
