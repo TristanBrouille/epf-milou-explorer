@@ -14,12 +14,13 @@ openocd -f interface/stlink.cfg -f target/stm32g4x.cfg -c "program bin/cmd_led v
 ```
 
 ## Setup USB for wsl
-See documentation : [Connect USB Divice](https://learn.microsoft.com/en-us/windows/wsl/connect-usb#install-the-usbipd-win-project)
+See documentation : [Connect USB Devices](https://learn.microsoft.com/en-us/windows/wsl/connect-usb#install-the-usbipd-win-project)
 ```bash
 usbipd list    
 usbipd bind --busid 4-4
 usbipd attach --wsl --busid <busid>
 ```
+
 
 
 
