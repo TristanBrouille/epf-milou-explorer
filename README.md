@@ -15,7 +15,8 @@ openocd -f interface/stlink.cfg -f target/stm32g4x.cfg -c "program bin/cmd_led v
 
 usbipd list    
 - usbipd bind --busid 4-4
-usbipd attach --wsl --busid <busid>
+- usbipd attach --wsl --busid <busid>
+
 
 
 
