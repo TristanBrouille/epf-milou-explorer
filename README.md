@@ -13,9 +13,12 @@ Competition: [CSPACE](https://cspace.fr/)
 openocd -f interface/stlink.cfg -f target/stm32g4x.cfg -c "program bin/cmd_led verify reset exit"
 ```
 
+## Setup USB for wsl
+```bash
 usbipd list    
-- usbipd bind --busid 4-4
-- usbipd attach --wsl --busid <busid>
+usbipd bind --busid 4-4
+usbipd attach --wsl --busid <busid>
+```
 
 
 
