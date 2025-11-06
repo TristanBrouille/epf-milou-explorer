@@ -8,11 +8,14 @@ This repository contains the minimal software stack and hardware interface code 
 
 Competition: [CSPACE](https://cspace.fr/)  
 
-## programme firmware
+## Program Firmware
+```bash
 openocd -f interface/stlink.cfg -f target/stm32g4x.cfg -c "program bin/cmd_led verify reset exit"
+```
 
 usbipd list
 usbipd bind --busid 4-4
 usbipd attach --wsl --busid <busid>
+
 
 
