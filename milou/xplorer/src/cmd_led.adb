@@ -4,7 +4,19 @@ with Last_Chance_Handler;
 pragma Unreferenced (Board);
 procedure Cmd_Led is
 begin
-Init_led;
-Set_LED (Red_Color);
+   Init_LED;
+   Set_LED (Green_Color);
+   Set_LED (Green_Color);
+   Latch_Period;
+   delay 0.5;
+   Set_LED (Red_Color);  
+   Set_LED (Blue_Color);
+   Latch_Period;
+   delay 0.5;
+   Set_LED (Blue_Color);
+   Set_LED (Blue_Color);
+   Latch_Period;
+   delay 0.5;
 
+   
 end Cmd_Led;

@@ -14,7 +14,7 @@ procedure PWM_LED is
    -- Définition de la couleur rouge : 8 bits à 1, puis 16 à 0
    Red_Color : constant Color_Array := ( 
       0, 0, 0, 0, 0, 0, 0, 0, -- 8 bits à 1 pour le rouge
-      1, 1, 0, 0, 0, 0, 0, 0, -- 16 bits à 0 pour le reste
+      1, 1, 1, 1, 1, 1, 1, 1, -- 16 bits à 0 pour le reste
       0, 0, 0, 0, 0, 0, 0, 0
 
    );
@@ -81,6 +81,22 @@ begin
 
       Counter := (if Counter = Red_Color'Last 
                            then Red_Color'First
+                           else Counter + 1);
+
+      delay until Next_Release;
+   end loop;
+   delay 1.0;
+   loop
+      -- Choisir la période normale ou la période de latch
+      Period := (if Counter = Bit_Count then Latch_Period else Period);
+      Next_Release := Next_Release + Period;
+
+      if Counter /= Bit_Count then
+         Out_Bit (Green_Color (Counter));
+      end if;
+
+      Counter := (if Counter = Green_Color'Last 
+                           then Green_Color'First
                            else Counter + 1);
 
       delay until Next_Release;
