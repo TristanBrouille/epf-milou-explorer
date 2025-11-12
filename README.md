@@ -20,6 +20,15 @@ usbipd list
 usbipd bind --busid 4-4
 usbipd attach --wsl --busid <busid>
 ```
+## Workflow
+### Issues
+Make a issue with the nomenclature :
+* AAU : As A User
+* AAD : As A Developper
+* AAT : As A Tester
+
+### Commit 
+
 
 
 
