@@ -29,7 +29,7 @@ Make a issue with the nomenclature :
 
 And the subjet of the issue   
 *ex : AAD, I should fix the bug of servo*   
-You can affect a label and/or milestone for precise your ticket
+You can affect a label and/or milestone for precise your ticket.   
 Finish by creat the branch (*preferably on main*)
 
 ### Commit 
@@ -38,6 +38,7 @@ Commit with the number of the issue and a short sentence describing the changes.
 
 ### Pull Request
 Befor appling changes create a pull request of your issue, assign a reviewer. **You can't merge without reviewing !**
+
 
 
 
