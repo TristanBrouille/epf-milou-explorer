@@ -25,7 +25,8 @@ usbipd attach --wsl --busid <busid>
 Make a issue with the nomenclature :
 * AAU : As A User
 * AAD : As A Developper
-* AAT : As A Tester   
+* AAT : As A Tester
+
 And the subjet of the issue   
 *ex : AAD, I should fix the bug of servo*   
 You can affect a label and/or milestone for precise your ticket
@@ -37,6 +38,7 @@ Commit with the number of the issue and a short sentence describing the changes.
 
 ### Pull Request
 Befor appling changes create a pull request of your issue, assign a reviewer. **You can't merge without reviewing !**
+
 
 
 
