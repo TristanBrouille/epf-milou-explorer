@@ -20,13 +20,13 @@ package Color_led is
       Blue_Color : constant Color_Array := ( 
          0, 0, 0, 0, 0, 0, 0, 0, -- Green: 8 bits
          0, 0, 0, 0, 0, 0, 0, 0, -- Red: 8 bits
-         1, 1, 1, 1, 1, 1, 1, 1  -- Blue: 8 bits
+         1, 1, 1, 1, 1, 1, 1, 0  -- Blue: 8 bits
       );
       
 
    procedure Init_LED;
    procedure Set_LED (C : Color_Array);
    procedure Latch_Period;
-   
+
    
 end Color_led;
