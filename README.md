@@ -20,24 +20,39 @@ usbipd list
 usbipd bind --busid 4-4
 usbipd attach --wsl --busid <busid>
 ```
-## Workflow Dev
-### Issues
-Make a issue with the nomenclature :
-* AAU : As A User
-* AAD : As A Developper
-* AAT : As A Tester
+## 🧩 Development Workflow
 
-And the subjet of the issue   
-*ex : AAD, I should fix the bug of servo*   
-You can affect a label and/or milestone for precise your ticket.   
-Finish by creat the branch (*preferably on main*)
+### 🐞 Issues
+Create an issue following this naming convention:
 
-### Commit 
-Commit with the number of the issue and a short sentence describing the changes.   
-*ex : #23: bug of servo resolve by the ...*
+- **AAU** — As A User  
+- **AAD** — As A Developer  
+- **AAT** — As A Tester  
 
-### Pull Request
-Befor appling changes create a pull request of your issue, assign a reviewer. **You can't merge without reviewing !**
+Then add the **subject** of the issue.  
+> Example: `AAD, I should fix the bug of the servo`
+
+You can assign **labels** and/or **milestones** to make your ticket more precise.
+
+Once the issue is created, **create a branch for it** *(preferably based on `main`)*.
+
+---
+
+### 💬 Commits
+When committing, include the **issue number** and a short sentence describing the changes.
+
+> Example:  
+> `#23: Servo bug fixed by adjusting PWM timing`
+
+---
+
+### 🔀 Pull Requests
+Before merging your changes, **create a Pull Request** linked to the issue and **assign a reviewer**.
+
+⚠️ **You cannot merge without a review!**
+
+---
+
 
 
 
