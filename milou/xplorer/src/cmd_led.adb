@@ -9,14 +9,14 @@ begin
    Set_LED (Green_Color);
    Latch_Period;
    delay 0.5;
+   Init_LED;
+   Set_LED (Red_Color);
    Set_LED (Red_Color);  
+   Latch_Period;
+   delay 0.5;
+   Init_LED;
+   Set_LED (Blue_Color);
    Set_LED (Blue_Color);
    Latch_Period;
    delay 0.5;
-   Set_LED (Blue_Color);
-   Set_LED (Blue_Color);
-   Latch_Period;
-   delay 0.5;
-
-   
 end Cmd_Led;
