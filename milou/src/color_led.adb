@@ -48,12 +48,14 @@ package body Color_led is
       for I in C'Range loop
          if C (I) = 0 then
             TIM1_Periph.CCR1.CCR1 := CCR1_CCR1_Field (59);   -- ~0.35 us high
+            Wait_Update;
+
          else
             TIM1_Periph.CCR1.CCR1 := CCR1_CCR1_Field (119);  -- ~0.70 us high
-         end if;
-         Wait_Update; 
-      end loop;
+            Wait_Update;
 
+         end if;
+      end loop;
 
    end Set_LED;
 
