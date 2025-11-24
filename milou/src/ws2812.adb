@@ -3,10 +3,13 @@ with Interfaces.STM32.GPIO; use Interfaces.STM32.GPIO;
 with Interfaces.STM32.TIM;  use Interfaces.STM32.TIM;
 with Interfaces.STM32;      use Interfaces.STM32;
 with Ada.Real_Time;         use Ada.Real_Time;
+with Set_Pin; use Set_Pin;
 
-package body Color_led is
-   procedure Init_LED is
-   begin
+package body WS2812 is
+   procedure Configure_Gpio (Pin : GPIO_T) is
+Periph : constant GPIO_Peripheral_Access :=
+Get_Periph (Pin.Port);
+begin
       RCC_Periph.AHB2ENR.GPIOAEN := 1;
       RCC_Periph.APB2ENR.TIM1EN := 1;
 
@@ -67,4 +70,4 @@ package body Color_led is
       end loop;
       Wait_Update;
    end Latch_Period;
-end Color_led;
+end WS2812;;

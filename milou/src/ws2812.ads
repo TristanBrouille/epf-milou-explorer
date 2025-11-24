@@ -1,4 +1,4 @@
-package Color_led is
+package WS2812 is
    type Bit is mod 2 ** 1; -- Définition du type Bit comme un entier modulaire sur 1 bit
       type Color_Array is array (Positive range 1 .. 24) of Bit; -- Définition d'un tableau de 24 bits
 
@@ -29,4 +29,4 @@ package Color_led is
    procedure Latch_Period;
 
    
-end Color_led;
+end WS2812;;
