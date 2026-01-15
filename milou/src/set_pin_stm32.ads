@@ -1,20 +1,21 @@
+with Interfaces.STM32.RCC;  use Interfaces.STM32.RCC;
 with Interfaces.STM32.GPIO; use Interfaces.STM32.GPIO;
+with Interfaces.STM32.TIM;  use Interfaces.STM32.TIM;
+with Interfaces.STM32;      use Interfaces.STM32;
 
-package Set_Pin is
+package Set_Pin_Stm32 is
 
-type Port_T is (A, B, C, D, E, F, G);
+   type Port_T is (A, B, C, D, E, F, G);
 
-type GPIO_T is record
-Port : Port_T;
-Pin : Natural range 0 .. 15;
-end record;
+   type GPIO_T is record
+      Port : Port_T;
+      Pin  : Natural range 0 .. 15;
+   end record;
 
-function Set_Pin (Port : Port_T; Pin : Natural) return GPIO_T;
+   function Set_Pin (Port : Port_T; Pin : Natural) return GPIO_T;
 
-function Get_Periph
-(Port : Port_T)
-return GPIO_Peripheral_Access;
+   function Get_Periph (Port : Port_T) return String;
 
-procedure Enable_Clock (Port : Port_T);
+   procedure Enable_Clock (Port : Port_T);
 
-end Set_Pin;
+end Set_Pin_Stm32;

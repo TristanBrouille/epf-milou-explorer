@@ -3,13 +3,15 @@ with Interfaces.STM32.GPIO; use Interfaces.STM32.GPIO;
 with Interfaces.STM32.TIM;  use Interfaces.STM32.TIM;
 with Interfaces.STM32;      use Interfaces.STM32;
 with Ada.Real_Time;         use Ada.Real_Time;
-with Set_Pin; use Set_Pin;
+with Set_Pin_Stm32;         use Set_Pin_Stm32;
 
 package body WS2812 is
-   procedure Configure_Gpio (Pin : GPIO_T) is
-Periph : constant GPIO_Peripheral_Access :=
-Get_Periph (Pin.Port);
-begin
+
+   T0H : constant := 60;
+   T1H : constant := 120;
+
+   procedure Config is
+      begin
       RCC_Periph.AHB2ENR.GPIOAEN := 1;
       RCC_Periph.APB2ENR.TIM1EN := 1;
 
@@ -37,6 +39,25 @@ begin
       TIM1_Periph.CR1.CEN := 1;                     -- start timer
    end;
 
+   procedure Init (Self : in out WS2812_Device_T) is
+   begin
+      Config;
+   end Init;
+
+   procedure Set_GRB_At (Self : in out WS2812_Device_T; 
+                         Index : Positive; 
+                         Color : Color_T) is
+   begin
+      Self.Leds (Index) := Color;
+   end;
+   procedure Set_GRB_All (Self : in out WS2812_Device_T; 
+                          Color : Color_T) is
+   begin
+      for I in Self.Leds'Range loop
+         Self.Leds (I) := Color;
+      end loop;
+   end;
+
    procedure Wait_Update is
    begin
       while TIM1_Periph.SR.UIF = 0 loop
@@ -45,29 +66,61 @@ begin
       TIM1_Periph.SR.UIF := 0; -- clear flag
    end Wait_Update;
 
-   procedure Set_LED (C : Color_Array) is
+   type Channel_Array_T is array (Positive range 1 .. U8_T'Size) of U1_T;
+   pragma Pack (Channel_Array_T);
+
+   type Bit_Array_T is array (Positive range <>) of U1_T;
+   pragma Pack (Bit_Array_T);
+
+   procedure Show (Self : WS2812_Device_T) is
+      Bits : Bit_Array_T (1 .. Self.Leds'Length * Color_T'Size) := (others => 0);
    begin
-      -- send 24 bits
-      for I in C'Range loop
-         if C (I) = 0 then
-            TIM1_Periph.CCR1.CCR1 := CCR1_CCR1_Field (59);   -- ~0.35 us high
+      for L in Self.Leds'Range loop
+         declare
+            Red   : Channel_Array_T with Address => Self.Leds (L).R'Address;
+            Green : Channel_Array_T with Address => Self.Leds (L).G'Address;
+            Blue  : Channel_Array_T with Address => Self.Leds (L).B'Address;
+            Base_Idx : Natural := ((L - 1) * Color_T'Size);
+         begin
+            for I in 1 .. 8 loop
+               Bits (Base_Idx + I) := Green (I);
+               Bits (Base_Idx + I + 8) := Red (I);
+               Bits (Base_Idx + I + 16) := Blue (I);
+            end loop;
+         end;
+      end loop;
+
+      Wait_Update;
+      for I in Bits'Range loop
+         if Bits (I) = 0 then
+            TIM1_Periph.CCR1.CCR1 := CCR1_CCR1_Field (T0H); 
          else
-            TIM1_Periph.CCR1.CCR1 := CCR1_CCR1_Field (119);  -- ~0.70 us high
+            TIM1_Periph.CCR1.CCR1 := CCR1_CCR1_Field (T1H); 
          end if;
          Wait_Update; 
       end loop;
-
-
-   end Set_LED;
-
-   procedure Latch_Period is
-   begin
-      -- Latch period: hold low for >= 80 us
+      Wait_Update;
+   
       TIM1_Periph.CCR1.CCR1 := CCR1_CCR1_Field (0);
       for K in 1 .. 64 loop
-         -- 64 * 1.25 us ≈ 80 us
          Wait_Update;
       end loop;
+   end;
+
+   procedure Clear (Self : WS2812_Device_T) is   
+   begin
       Wait_Update;
-   end Latch_Period;
-end WS2812;;
+      for L in Self.Leds'Range loop
+         for I in 1 .. Color_T'Size loop
+            TIM1_Periph.CCR1.CCR1 := CCR1_CCR1_Field (T0H); 
+            Wait_Update; 
+         end loop;
+      end loop;
+      Wait_Update;
+      
+      TIM1_Periph.CCR1.CCR1 := CCR1_CCR1_Field (0);
+      for K in 1 .. 64 loop
+         Wait_Update;
+      end loop;
+   end;
+end WS2812;

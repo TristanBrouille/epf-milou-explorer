@@ -10,6 +10,8 @@ website = ""
 tags = []
 
 [[depends-on]]
-light_tasking_stm32g431 = "*"
-gnat_arm_elf = "*"
+    light_stm32g431 = "*"
+    light_tasking_stm32g431 = "*"
+    embedded_stm32g431 = "*"
+
 
