@@ -1,9 +1,6 @@
 with Interfaces.STM32.RCC;  use Interfaces.STM32.RCC;
 with Interfaces.STM32.GPIO; use Interfaces.STM32.GPIO;
 
-with Board;
-pragma Unreferenced (Board);
-
 package body Last_Chance_Handler is
 
    procedure Last_Chance_Handler (Msg : System.Address; Line : Integer) is
