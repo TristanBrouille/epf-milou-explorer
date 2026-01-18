@@ -20,6 +20,14 @@ usbipd list
 usbipd bind --busid 4-4
 usbipd attach --wsl --busid <busid>
 ```
+
+## Setup debug terminal for wsl
+```bash
+sudo screen /dev/ttyACM0 115200
+```
+
+Exit and Close	`Ctrl + A` then `K`
+
 ## 🧩 Development Workflow
 
 ### 🐞 Issues
