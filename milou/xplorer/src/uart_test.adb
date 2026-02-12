@@ -1,6 +1,6 @@
 with Uart;
-with board;
-pragma Unreferenced (Board);
+
+with Last_Chance_Handler;
 
 procedure Uart_Test is
 begin

@@ -1,4 +1,4 @@
-with board;
+
 procedure Xplorer is
 begin
    null;

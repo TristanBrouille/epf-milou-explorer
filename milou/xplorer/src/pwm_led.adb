@@ -1,9 +1,7 @@
-with Interfaces.STM32.RCC;  use Interfaces.STM32.RCC;
-with Interfaces.STM32.GPIO; use Interfaces.STM32.GPIO;
-with Interfaces.STM32.TIM;  use Interfaces.STM32.TIM;
-with Ada.Real_Time;         use Ada.Real_Time;
-with board;
-pragma Unreferenced (Board);
+with STM32G431xx.RCC;  use STM32G431xx.RCC;
+with STM32G431xx.GPIO; use STM32G431xx.GPIO;
+with STM32G431xx.TIM;  use STM32G431xx.TIM;
+with Ada.Real_Time;    use Ada.Real_Time;
 
 procedure PWM_LED is
 

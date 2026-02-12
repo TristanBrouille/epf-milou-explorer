@@ -1,8 +1,8 @@
-with Interfaces.STM32.RCC;  use Interfaces.STM32.RCC;
-with Interfaces.STM32.GPIO; use Interfaces.STM32.GPIO;
-with Interfaces.STM32.TIM;  use Interfaces.STM32.TIM;
-with Interfaces.STM32;      use Interfaces.STM32;
-with Ada.Real_Time;         use Ada.Real_Time;
+with STM32G431xx.RCC;  use STM32G431xx.RCC;
+with STM32G431xx.GPIO; use STM32G431xx.GPIO;
+with STM32G431xx.TIM;  use STM32G431xx.TIM;
+with STM32G431xx;      use STM32G431xx;
+with Ada.Real_Time;    use Ada.Real_Time;
 
 package body Color_led is
    procedure Init_LED is
@@ -10,11 +10,11 @@ package body Color_led is
       RCC_Periph.AHB2ENR.GPIOAEN := 1;
       RCC_Periph.APB2ENR.TIM1EN := 1;
 
-      GPIOA_Periph.MODER.Arr (8) := 2#10#;   -- AF
-      GPIOA_Periph.AFRH.Arr (8) := 6;       -- AF6 TIM1_CH1
+      GPIOA_Periph.MODER.Arr (8) := 2#10#;     -- AF
+      GPIOA_Periph.AFRH.Arr (8) := 6;          -- AF6 TIM1_CH1
       GPIOA_Periph.OSPEEDR.Arr (8) := 2#11#;   -- High speed
-      GPIOA_Periph.OTYPER.OT.Arr (8) := 0;       -- Push-pull
-      GPIOA_Periph.PUPDR.Arr (8) := 2#00#;   -- No pull
+      GPIOA_Periph.OTYPER.OT.Arr (8) := 0;     -- Push-pull
+      GPIOA_Periph.PUPDR.Arr (8) := 2#00#;     -- No pull
 
       TIM1_Periph.PSC.PSC := PSC_PSC_Field (0);      -- 170 MHz
       TIM1_Periph.ARR.ARR := ARR_ARR_Field (212);    -- 1.25 us
