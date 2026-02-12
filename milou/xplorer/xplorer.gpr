@@ -24,6 +24,7 @@ project Xplorer is
       for Switches ("Ada") use Runtime_Build.Linker_Switches;
    end Linker;
 
+
    package Binder is
       for Switches ("Ada") use ("-Es"); --  Symbolic traceback
    end Binder;
