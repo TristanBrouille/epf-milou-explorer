@@ -1,11 +1,17 @@
+
 with Uart;
+with Barrel_Jack;
 with board;
 pragma Unreferenced (Board);
 
 procedure Uart_Test is
 begin
    Uart.Init;
-   Uart.Put_Char ('X');
+   Barrel_Jack.Init;
+   while not Barrel_Jack.Is_Detached loop
+         null;
+   end loop;
+   Uart.Put_Char ('y');
    loop
       null;
    end loop;
