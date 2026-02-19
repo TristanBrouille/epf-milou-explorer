@@ -1,8 +1,3 @@
-with Interfaces.STM32.RCC;  use Interfaces.STM32.RCC;
-with Interfaces.STM32.GPIO; use Interfaces.STM32.GPIO;
-with Interfaces.STM32.TIM;  use Interfaces.STM32.TIM;
-with Interfaces.STM32;      use Interfaces.STM32;
-
 package Set_Pin_Stm32 is
 
    type Port_T is (A, B, C, D, E, F, G);

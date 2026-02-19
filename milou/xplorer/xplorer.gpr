@@ -12,8 +12,6 @@ project Xplorer is
    for Exec_Dir use "bin";
    for Main use (
       "xplorer.adb", 
-      "cmd_led.adb", 
-      "pwm_led.adb",
       "uart_test.adb",
       "barrel_jack_test.adb"
       );

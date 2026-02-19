@@ -1,5 +1,5 @@
 with Set_Pin_Stm32; use Set_Pin_Stm32;
-with Interfaces.STM32;
+with STM32G431xx;      use STM32G431xx;
 
 package WS2812 is
    type U8_T is range 0 .. 255 with Size => 8;
