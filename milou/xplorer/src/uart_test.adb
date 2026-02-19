@@ -1,5 +1,4 @@
 with Uart;
-
 with Last_Chance_Handler;
 
 procedure Uart_Test is
