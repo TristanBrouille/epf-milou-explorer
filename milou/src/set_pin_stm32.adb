@@ -1,7 +1,8 @@
-with Interfaces.STM32.RCC;  use Interfaces.STM32.RCC;
-with Interfaces.STM32.GPIO; use Interfaces.STM32.GPIO;
-with Interfaces.STM32.TIM;  use Interfaces.STM32.TIM;
-with Interfaces.STM32;      use Interfaces.STM32;
+with STM32G431xx.RCC;  use STM32G431xx.RCC;
+with STM32G431xx.GPIO; use STM32G431xx.GPIO;
+with STM32G431xx.TIM;  use STM32G431xx.TIM;
+with STM32G431xx;      use STM32G431xx;
+with Ada.Real_Time;    use Ada.Real_Time;
 
 package body Set_Pin_Stm32 is
 
