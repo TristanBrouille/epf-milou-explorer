@@ -1,8 +1,7 @@
 
 with Uart;
-with Barrel_Jack;
-with board;
-pragma Unreferenced (Board);
+
+with Last_Chance_Handler;
 
 procedure Uart_Test is
 begin
