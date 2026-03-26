@@ -1,6 +1,4 @@
 with Uart;
-with board;
-pragma Unreferenced (Board);
 
 procedure Uart_Test is
 begin

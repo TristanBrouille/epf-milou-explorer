@@ -1,7 +1,7 @@
-with Interfaces.STM32.USART; use Interfaces.STM32.USART;
-with Interfaces.STM32.GPIO; use Interfaces.STM32.GPIO;
-with Interfaces.STM32.RCC; use Interfaces.STM32.RCC;
-with Interfaces.STM32; use Interfaces.STM32;
+with STM32G431xx.RCC;  use STM32G431xx.RCC;
+with STM32G431xx.GPIO; use STM32G431xx.GPIO;
+with STM32G431xx.USART; use STM32G431xx.USART;
+with STM32G431xx; use STM32G431xx;
 
 --with Interfaces.STM32;
 
@@ -89,4 +89,17 @@ package body Uart is
       end loop;
       USART2_Periph.TDR.TDR := UInt9 (Character'Pos (C));
    end Put_Char;
+
+      procedure Put_Str (S : String) is
+   begin
+      for C of S loop
+         Put_Char (C);
+      end loop;
+   end;
+
+   procedure Put_New_Line is
+   begin
+      Put_Char (ASCII.CR);
+      Put_Char (ASCII.LF);
+   end;
 end Uart;

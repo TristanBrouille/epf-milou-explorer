@@ -10,8 +10,35 @@ website = ""
 tags = []
 
 [[depends-on]]
-    light_stm32g431 = "*"
     light_tasking_stm32g431 = "*"
-    embedded_stm32g431 = "*"
+    gnat_arm_elf = "*"
+
+    [configuration.values]
+# Target microcontroller
+light_tasking_stm32g4xx.MCU_Sub_Family        = "G431"
+light_tasking_stm32g4xx.MCU_Flash_Memory_Size = "6"
+
+# External oscillator
+light_tasking_stm32g4xx.HSE_Clock_Frequency = 24000000
+light_tasking_stm32g4xx.HSE_Bypass         = false
+
+# Use PLLR output as SYSCLK
+light_tasking_stm32g4xx.SYSCLK_Src = "PLLRCLK"
+
+# PLL source
+light_tasking_stm32g4xx.PLL_Src = "HSE"
+
+# PLL math:
+# 24 MHz / 4 = 6 MHz (VCO input)
+# 6 MHz * 40 = 240 MHz (VCO)
+# 240 MHz / 2 = 120 MHz (SYSCLK)
+light_tasking_stm32g4xx.PLL_M_Div = 4
+light_tasking_stm32g4xx.PLL_N_Mul = 40
+light_tasking_stm32g4xx.PLL_R_Div = "DIV2"
+
+# Bus prescalers
+light_tasking_stm32g4xx.AHB_Pre  = "DIV1"
+light_tasking_stm32g4xx.APB1_Pre = "DIV1"
+light_tasking_stm32g4xx.APB2_Pre = "DIV1"
 
 
