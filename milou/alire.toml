@@ -10,8 +10,8 @@ website = ""
 tags = []
 
 [[depends-on]]
-light_tasking_stm32g4xx = "*"
-gnat_arm_elf = "*"
+    light_tasking_stm32g431 = "*"
+    gnat_arm_elf = "*"
 
 [configuration.values]
 # Target microcontroller
