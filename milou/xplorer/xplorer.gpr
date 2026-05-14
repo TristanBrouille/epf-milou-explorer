@@ -13,7 +13,8 @@ project Xplorer is
    for Main use (
       "xplorer.adb", 
       "uart_test.adb",
-      "barrel_jack_test.adb"
+      "barrel_jack_test.adb",
+      "test_bmi160.adb"
       );
 
    package Compiler is
